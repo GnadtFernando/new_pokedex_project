@@ -1,9 +1,8 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
+import 'package:new_pokedex_project/common/routes/app_routes.dart';
 import 'package:new_pokedex_project/common/widgets/error_custom_widget.dart';
 import 'package:new_pokedex_project/common/widgets/serch_custom_input_widget.dart';
 import 'package:new_pokedex_project/modules/pokedex/pokedex_controller.dart';
@@ -54,7 +53,11 @@ class PokedexPage extends GetView<PokedexController> {
                             .map(
                               (e) => GestureDetector(
                                 onTap: () {
-                                  log(e.name!);
+                                  Get.toNamed(
+                                    AppRoutes.pokemonDetail,
+
+                                    arguments: {'url': e.url},
+                                  );
                                 },
                                 child: PokemonItemWidget(
                                   pokemon: e,
