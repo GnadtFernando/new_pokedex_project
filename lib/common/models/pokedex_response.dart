@@ -30,8 +30,9 @@ class PokedexResponse {
 class PokemonData {
   String? name;
   String? url;
+  String? imageUrl;
 
-  PokemonData({this.name, this.url});
+  PokemonData({this.name, this.url, this.imageUrl});
 
   factory PokemonData.fromJson(Map<String, dynamic> json) =>
       PokemonData(name: json["name"], url: json["url"]);

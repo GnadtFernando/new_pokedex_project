@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:new_pokedex_project/common/consts/app_colors.dart';
 import 'package:new_pokedex_project/common/models/pokemon_detail_response.dart';
 
 class PokemonDetailWidget extends StatelessWidget {
@@ -21,19 +22,19 @@ class PokemonDetailWidget extends StatelessWidget {
                   Flexible(
                     child: Text(
                       pokemon?.name ?? '',
-                      style: const TextStyle(
-                        fontSize: 26,
+                      style: TextStyle(
+                        fontSize: 26.sp,
                         fontWeight: FontWeight.bold,
-                        color: Colors.black,
+                        color: AppColors.black,
                       ),
                     ),
                   ),
                   Text(
                     '#${pokemon?.id ?? '0'}',
-                    style: const TextStyle(
-                      fontSize: 20,
+                    style: TextStyle(
+                      fontSize: 20.sp,
                       fontWeight: FontWeight.bold,
-                      color: Colors.black,
+                      color: AppColors.black,
                     ),
                   ),
                 ],
@@ -61,10 +62,10 @@ class PokemonDetailWidget extends StatelessWidget {
                       ),
                       child: Text(
                         pokemon?.types?[index].type?.name ?? '',
-                        style: const TextStyle(
-                          fontSize: 16,
+                        style: TextStyle(
+                          fontSize: 16.sp,
                           fontWeight: FontWeight.bold,
-                          color: Colors.black,
+                          color: AppColors.black,
                         ),
                       ),
                     );
@@ -77,18 +78,18 @@ class PokemonDetailWidget extends StatelessWidget {
                 children: [
                   Text(
                     'Altura: ${pokemon?.height ?? '0'}',
-                    style: const TextStyle(
-                      fontSize: 16,
+                    style: TextStyle(
+                      fontSize: 16.sp,
                       fontWeight: FontWeight.bold,
-                      color: Colors.black,
+                      color: AppColors.black,
                     ),
                   ),
                   Text(
                     'Peso: ${pokemon?.weight ?? '0'}',
-                    style: const TextStyle(
-                      fontSize: 16,
+                    style: TextStyle(
+                      fontSize: 16.sp,
                       fontWeight: FontWeight.bold,
-                      color: Colors.black,
+                      color: AppColors.black,
                     ),
                   ),
                 ],

@@ -55,7 +55,6 @@ class PokedexPage extends GetView<PokedexController> {
                                 onTap: () {
                                   Get.toNamed(
                                     AppRoutes.pokemonDetail,
-
                                     arguments: {'url': e.url},
                                   );
                                 },

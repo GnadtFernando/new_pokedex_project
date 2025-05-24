@@ -5,6 +5,7 @@ import 'package:new_pokedex_project/common/routes/app_pages.dart';
 import 'package:get/get.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
 

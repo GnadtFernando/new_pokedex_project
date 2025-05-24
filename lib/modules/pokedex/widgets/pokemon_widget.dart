@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:new_pokedex_project/common/consts/app_colors.dart';
@@ -35,20 +36,20 @@ class PokemonItemWidget extends StatelessWidget {
                       child: Text(
                         pokemon.name ?? '',
                         style: TextStyle(
-                          color: Colors.black,
+                          color: AppColors.black,
                           fontWeight: FontWeight.bold,
                           fontSize: 16.sp,
                         ),
                       ),
                     ),
-                    Text(
-                      '#${index + 1}',
-                      style: TextStyle(
-                        color: Colors.black.withAlpha((0.4 * 255).toInt()),
-                        fontWeight: FontWeight.bold,
-                        fontSize: 14,
-                      ),
-                    ),
+                    // Text(
+                    //   '#${index + 1}',
+                    //   style: TextStyle(
+                    //     color: AppColors.black,
+                    //     fontWeight: FontWeight.bold,
+                    //     fontSize: 14,
+                    //   ),
+                    // ),
                   ],
                 ),
                 Row(
@@ -67,8 +68,8 @@ class PokemonItemWidget extends StatelessWidget {
         Positioned(
           bottom: 0.w,
           right: 2.w,
-          child: Image.network(
-            'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${index + 1}.png',
+          child: CachedNetworkImage(
+            imageUrl: pokemon.imageUrl ?? '',
             height: 100.h,
           ),
         ),
