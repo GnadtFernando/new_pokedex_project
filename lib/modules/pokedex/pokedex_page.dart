@@ -52,22 +52,26 @@ class PokedexPage extends GetView<PokedexController> {
                 child: RefreshIndicator(
                   onRefresh: () => controller.fetchPokemonList(),
                   child: GridView.builder(
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      crossAxisSpacing: 12.w,
-                      mainAxisSpacing: 12.h,
-                    ),
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          crossAxisSpacing: 12,
+                          mainAxisSpacing: 12,
+                        ),
                     itemCount: controller.pokemonList.length,
                     itemBuilder: (context, index) {
-                      final e = controller.pokemonList[index];
+                      final pokemon = controller.pokemonList[index];
                       return GestureDetector(
                         onTap: () {
                           Get.toNamed(
                             AppRoutes.pokemonDetail,
-                            arguments: {'url': e.url},
+                            arguments: {'url': pokemon.url},
                           );
                         },
-                        child: PokemonItemWidget(pokemon: e, index: index),
+                        child: PokemonItemWidget(
+                          pokemon: pokemon,
+                          index: index,
+                        ),
                       );
                     },
                   ),

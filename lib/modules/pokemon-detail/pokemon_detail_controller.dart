@@ -7,20 +7,23 @@ import 'package:new_pokedex_project/common/services/pokemon-detail-service/pokem
 class PokemonDetailController extends GetxController {
   final PokemonDetailService _pokemonDetailService;
   final RxBool isLoading = true.obs;
-  final RxString? pokemonUrl;
+  final RxString _pokemonUrl;
   final Rx<PokemonDetailResponse?> pokemonDetail = Rx<PokemonDetailResponse?>(
     null,
   );
 
+  String get pokemonUrl => _pokemonUrl.value;
+
   PokemonDetailController({
-    required this.pokemonUrl,
+    required String pokemonUrl,
     PokemonDetailService? pokemonDetailService,
-  }) : _pokemonDetailService = pokemonDetailService ?? PokemonDetailService();
+  }) : _pokemonUrl = pokemonUrl.obs,
+       _pokemonDetailService = pokemonDetailService ?? PokemonDetailService();
 
   @override
   void onInit() {
     super.onInit();
-    if (pokemonUrl == null || pokemonUrl!.isEmpty) {
+    if (_pokemonUrl.value.isEmpty) {
       isLoading.value = false;
       return;
     }
@@ -31,14 +34,10 @@ class PokemonDetailController extends GetxController {
     try {
       isLoading.value = true;
       final result = await _pokemonDetailService.fetchPokemonList(
-        url: pokemonUrl!.value,
+        url: _pokemonUrl.value,
       );
 
-      if (result == null) {
-        pokemonDetail.value = null;
-      } else {
-        pokemonDetail.value = result;
-      }
+      pokemonDetail.value = result;
     } catch (e, st) {
       log('Pokemon detail: $e', stackTrace: st);
       pokemonDetail.value = null;

@@ -6,8 +6,8 @@ import 'package:new_pokedex_project/common/models/pokedex_response.dart';
 
 class PokemonItemWidget extends StatelessWidget {
   final PokemonData pokemon;
-
   final int index;
+
   const PokemonItemWidget({
     super.key,
     required this.pokemon,
@@ -42,35 +42,27 @@ class PokemonItemWidget extends StatelessWidget {
                         ),
                       ),
                     ),
-                    // Text(
-                    //   '#${index + 1}',
-                    //   style: TextStyle(
-                    //     color: AppColors.black,
-                    //     fontWeight: FontWeight.bold,
-                    //     fontSize: 14,
-                    //   ),
-                    // ),
                   ],
                 ),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Flexible(
-                      child: SizedBox(height: 100.h, width: 100.w),
+                SizedBox(height: 12.h),
+                // Espaço reservado para a imagem
+                Align(
+                  alignment: Alignment.bottomRight,
+                  child: SizedBox(
+                    width: 100.w,
+                    height: 100.h,
+                    child: CachedNetworkImage(
+                      imageUrl: pokemon.imageUrl ?? '',
+                      fit: BoxFit.contain,
+                      placeholder: (context, url) => Center(
+                        child: CircularProgressIndicator(strokeWidth: 2),
+                      ),
+                      errorWidget: (context, url, error) => Icon(Icons.error),
                     ),
-                  ],
+                  ),
                 ),
               ],
             ),
-          ),
-        ),
-        Positioned(
-          bottom: 0.w,
-          right: 2.w,
-          child: CachedNetworkImage(
-            imageUrl: pokemon.imageUrl ?? '',
-            height: 100.h,
           ),
         ),
       ],

@@ -8,7 +8,7 @@ class PokemonDetailBinding extends Bindings {
     final url = args != null ? args['url'] as String? : null;
 
     Get.put<PokemonDetailController>(
-      PokemonDetailController(pokemonUrl: url?.obs),
+      PokemonDetailController(pokemonUrl: url ?? ''),
     );
   }
 }

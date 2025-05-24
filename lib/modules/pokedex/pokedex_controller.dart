@@ -5,10 +5,9 @@ import 'package:new_pokedex_project/common/models/pokedex_response.dart';
 import 'package:new_pokedex_project/common/services/pokedex-service/pokedex_service.dart';
 
 class PokedexController extends GetxController {
-  RxBool isLoading = true.obs;
+  final RxBool isLoading = false.obs;
   final PokedexService _pokedexService;
-
-  RxList<PokemonData> pokemonList = <PokemonData>[].obs;
+  final RxList<PokemonData> pokemonList = <PokemonData>[].obs;
 
   PokedexController({required PokedexService pokedexService})
     : _pokedexService = pokedexService;
@@ -21,13 +20,14 @@ class PokedexController extends GetxController {
   }
 
   Future<void> fetchPokemonList() async {
+    if (isLoading.value) return;
     isLoading.value = true;
     try {
       final result = await _pokedexService.fetchPokemonList();
       pokemonList.assignAll(result);
       log('Pokemons: ${pokemonList.length}');
-    } catch (e) {
-      log('Erro ao buscar pokemons: $e');
+    } catch (e, st) {
+      log('Erro ao buscar pokemons: $e', stackTrace: st);
     } finally {
       isLoading.value = false;
     }
