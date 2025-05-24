@@ -4,6 +4,11 @@ import 'package:new_pokedex_project/modules/pokemon-detail/pokemon_detail_contro
 class PokemonDetailBinding extends Bindings {
   @override
   void dependencies() {
-    Get.put(PokemonDetailController());
+    final args = Get.arguments;
+    final url = args != null ? args['url'] as String? : null;
+
+    Get.put<PokemonDetailController>(
+      PokemonDetailController(pokemonUrl: url?.obs),
+    );
   }
 }

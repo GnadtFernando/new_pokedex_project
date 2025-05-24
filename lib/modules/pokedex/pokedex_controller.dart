@@ -6,20 +6,30 @@ import 'package:new_pokedex_project/common/services/pokedex-service/pokedex_serv
 
 class PokedexController extends GetxController {
   RxBool isLoading = true.obs;
-  final _pokedexService = PokedexService();
+  final PokedexService _pokedexService;
+
   RxList<PokemonData> pokemonList = <PokemonData>[].obs;
 
+  PokedexController({required PokedexService pokedexService})
+    : _pokedexService = pokedexService;
+
   @override
-  void onInit() async {
-    log('Pagina pokedex iniciado');
-    await fetchPokemonList();
-    isLoading.value = false;
+  void onInit() {
     super.onInit();
+    log('Pagina pokedex iniciado');
+    fetchPokemonList();
   }
 
   Future<void> fetchPokemonList() async {
-    final result = await _pokedexService.fetchPokemonList();
-    pokemonList.value = result;
-    log('Pokemons: ${pokemonList.length}');
+    isLoading.value = true;
+    try {
+      final result = await _pokedexService.fetchPokemonList();
+      pokemonList.assignAll(result);
+      log('Pokemons: ${pokemonList.length}');
+    } catch (e) {
+      log('Erro ao buscar pokemons: $e');
+    } finally {
+      isLoading.value = false;
+    }
   }
 }

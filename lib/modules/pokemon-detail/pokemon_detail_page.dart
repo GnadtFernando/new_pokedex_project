@@ -11,24 +11,26 @@ class PokemonDetailPage extends GetView<PokemonDetailController> {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(
-      () => controller.isLoading.isTrue
-          ? Center(
-              child: Lottie.asset(
-                'assets/lottie_file/pokeball_animation.json',
-                width: 100.w,
-                height: 100.h,
-                fit: BoxFit.fill,
-              ),
-            )
-          : Scaffold(
-              appBar: AppBar(),
-              body: controller.pokemonDetail.value == null
-                  ? ErrorCustomWidget()
-                  : PokemonDetailWidget(
-                      pokemon: controller.pokemonDetail.value,
-                    ),
+    return Scaffold(
+      appBar: AppBar(),
+      body: Obx(() {
+        if (controller.isLoading.value) {
+          return Center(
+            child: Lottie.asset(
+              'assets/lottie_file/pokeball_animation.json',
+              width: 100.w,
+              height: 100.h,
+              fit: BoxFit.fill,
             ),
+          );
+        }
+
+        if (controller.pokemonDetail.value == null) {
+          return const ErrorCustomWidget();
+        }
+
+        return PokemonDetailWidget(pokemon: controller.pokemonDetail.value);
+      }),
     );
   }
 }

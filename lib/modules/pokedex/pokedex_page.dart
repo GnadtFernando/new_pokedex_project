@@ -19,7 +19,7 @@ class PokedexPage extends GetView<PokedexController> {
         backgroundColor: Colors.red,
         centerTitle: false,
         title: Padding(
-          padding: EdgeInsets.only(left: 10),
+          padding: EdgeInsets.only(left: 10.w),
           child: Text(
             'Pokedéx',
             style: TextStyle(color: Colors.white, fontSize: 24.sp),
@@ -28,48 +28,54 @@ class PokedexPage extends GetView<PokedexController> {
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 12.h),
-        child: Obx(
-          () => controller.isLoading.isTrue
-              ? Center(
-                  child: Lottie.asset(
-                    'assets/lottie_file/pokeball_animation.json',
-                    width: 100.w,
-                    height: 100.h,
-                    fit: BoxFit.fill,
-                  ),
-                )
-              : controller.pokemonList.isEmpty
-              ? ErrorCustomWidget()
-              : Column(
-                  children: [
-                    Expanded(flex: 1, child: SerchCustomInputWidget()),
-                    Expanded(
-                      flex: 16,
-                      child: GridView.count(
-                        crossAxisCount: 2,
-                        crossAxisSpacing: 12,
-                        mainAxisSpacing: 12,
-                        children: controller.pokemonList
-                            .map(
-                              (e) => GestureDetector(
-                                onTap: () {
-                                  Get.toNamed(
-                                    AppRoutes.pokemonDetail,
-                                    arguments: {'url': e.url},
-                                  );
-                                },
-                                child: PokemonItemWidget(
-                                  pokemon: e,
-                                  index: controller.pokemonList.indexOf(e),
-                                ),
-                              ),
-                            )
-                            .toList(),
-                      ),
+        child: Obx(() {
+          if (controller.isLoading.value) {
+            return Center(
+              child: Lottie.asset(
+                'assets/lottie_file/pokeball_animation.json',
+                width: 100.w,
+                height: 100.h,
+                fit: BoxFit.fill,
+              ),
+            );
+          }
+
+          if (controller.pokemonList.isEmpty) {
+            return ErrorCustomWidget();
+          }
+
+          return Column(
+            children: [
+              Expanded(flex: 1, child: SerchCustomInputWidget()),
+              Expanded(
+                flex: 16,
+                child: RefreshIndicator(
+                  onRefresh: () => controller.fetchPokemonList(),
+                  child: GridView.builder(
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 12.w,
+                      mainAxisSpacing: 12.h,
                     ),
-                  ],
+                    itemCount: controller.pokemonList.length,
+                    itemBuilder: (context, index) {
+                      final e = controller.pokemonList[index];
+                      return GestureDetector(
+                        onTap: () {
+                          Get.toNamed(
+                            AppRoutes.pokemonDetail,
+                            arguments: {'url': e.url},
+                          );
+                        },
+                        child: PokemonItemWidget(pokemon: e, index: index),
+                      );
+                    },
+                  ),
                 ),
-        ),
+              ),
+            ],
+          );
+        }),
       ),
     );
   }
