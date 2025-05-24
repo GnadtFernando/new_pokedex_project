@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:get/get.dart';
 import 'package:new_pokedex_project/common/models/pokemon_detail_response.dart';
-import 'package:new_pokedex_project/common/services/pokemon_detail_service.dart';
+import 'package:new_pokedex_project/common/services/pokemon-detail-service/pokemon_detail_service.dart';
 
 class PokemonDetailController extends GetxController {
   RxBool isLoading = true.obs;
