@@ -16,7 +16,16 @@ class PokedexController extends GetxController {
   void onInit() {
     super.onInit();
     log('Pagina pokedex iniciado');
-    fetchPokemonList();
+    _fetchWithTimer();
+  }
+
+  Future<void> _fetchWithTimer() async {
+    final stopwatch = Stopwatch()..start();
+
+    await fetchPokemonList();
+
+    stopwatch.stop();
+    log('fetchPokemonList demorou ${stopwatch.elapsed.inSeconds} segundos');
   }
 
   Future<void> fetchPokemonList() async {

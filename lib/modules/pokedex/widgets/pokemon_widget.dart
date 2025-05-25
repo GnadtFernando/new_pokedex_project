@@ -38,26 +38,35 @@ class PokemonItemWidget extends StatelessWidget {
                         style: TextStyle(
                           color: AppColors.black,
                           fontWeight: FontWeight.bold,
-                          fontSize: 16.sp,
+                          fontSize: 16,
                         ),
+                      ),
+                    ),
+                    Text(
+                      '#${pokemon.id}',
+                      style: TextStyle(
+                        color: AppColors.black,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14,
                       ),
                     ),
                   ],
                 ),
-                SizedBox(height: 12.h),
-                // Espaço reservado para a imagem
-                Align(
-                  alignment: Alignment.bottomRight,
-                  child: SizedBox(
-                    width: 100.w,
-                    height: 100.h,
-                    child: CachedNetworkImage(
-                      imageUrl: pokemon.imageUrl ?? '',
-                      fit: BoxFit.contain,
-                      placeholder: (context, url) => Center(
-                        child: CircularProgressIndicator(strokeWidth: 2),
+                Padding(
+                  padding: EdgeInsets.only(top: 8.h),
+                  child: Align(
+                    alignment: Alignment.bottomRight,
+                    child: SizedBox(
+                      width: 100.w,
+                      height: 100.h,
+                      child: CachedNetworkImage(
+                        imageUrl: pokemon.imageUrl ?? '',
+                        fit: BoxFit.contain,
+                        placeholder: (context, url) => Center(
+                          child: CircularProgressIndicator(strokeWidth: 2),
+                        ),
+                        errorWidget: (context, url, error) => Icon(Icons.error),
                       ),
-                      errorWidget: (context, url, error) => Icon(Icons.error),
                     ),
                   ),
                 ),

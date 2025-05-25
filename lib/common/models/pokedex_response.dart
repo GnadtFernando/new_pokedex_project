@@ -28,14 +28,29 @@ class PokedexResponse {
 }
 
 class PokemonData {
-  String? name;
-  String? url;
-  String? imageUrl;
+  final String? name;
+  final String? url;
+  final String? imageUrl;
+  final int? id;
 
-  PokemonData({this.name, this.url, this.imageUrl});
+  PokemonData({this.name, this.url, this.imageUrl, this.id});
 
-  factory PokemonData.fromJson(Map<String, dynamic> json) =>
-      PokemonData(name: json["name"], url: json["url"]);
+  PokemonData copyWith({String? name, String? url, String? imageUrl, int? id}) {
+    return PokemonData(
+      name: name ?? this.name,
+      url: url ?? this.url,
+      imageUrl: imageUrl ?? this.imageUrl,
+      id: id ?? this.id,
+    );
+  }
 
-  Map<String, dynamic> toJson() => {"name": name, "url": url};
+  factory PokemonData.fromJson(Map<String, dynamic> json) {
+    return PokemonData(name: json["name"], url: json["url"]);
+  }
+
+  Map<String, dynamic> toJson() => {
+    "name": name,
+    "url": url,
+    "imageUrl": imageUrl,
+  };
 }
