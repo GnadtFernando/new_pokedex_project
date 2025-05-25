@@ -23,8 +23,7 @@ flutter doctor
 ### 1. Clone o repositório
 
 ```bash
-git clone https://github.com/seu-usuario/nome-do-projeto.git
-cd nome-do-projeto
+git clone https://github.com/GnadtFernando/new_pokedex_project.git
 ```
 
 ### 2. Certifique-se de que está usando a versão correta do Flutter
@@ -40,9 +39,8 @@ Ou, caso esteja usando Flutter diretamente:
 
 ```bash
 flutter --version
-# Se não for 3.32.0, mude manualmente ou instale:
-flutter downgrade 3.32.0
-flutter pub get
+# Se não for 3.32.0, mude manualmente ou instale: 
+# Você pode acessar https://docs.flutter.dev/install/archive para mais informações
 ```
 
 ### 3. Instale as dependências
@@ -63,16 +61,6 @@ flutter run
 
 ```bash
 flutter run --release
-```
-
----
-
-## 🛠 Estrutura do Projeto
-
-```
-lib/
-├── main.dart
-├── ...
 ```
 
 ---
