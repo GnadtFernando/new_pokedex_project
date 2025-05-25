@@ -8,48 +8,58 @@ import 'package:pool/pool.dart';
 
 class PokedexService {
   final Dio _dio;
+  final Map<String, PokemonData> _cache = {};
+
+  static const int _concurrentLimit = 15;
 
   PokedexService({Dio? dio}) : _dio = dio ?? Dio();
 
   Future<List<PokemonData>> fetchPokemonList() async {
-    final String baseUrl = BaseUrl.apiUrl;
-
     try {
-      final response = await _dio.get(baseUrl);
-      if (response.statusCode != 200) {
-        return List<PokemonData>.empty();
-      }
+      final response = await _dio.get(BaseUrl.apiUrl);
+
+      if (response.statusCode != 200) return [];
 
       final List<PokemonData> baseList = await compute(
         parsePokemonData,
         response.data as Map<String, dynamic>,
       );
 
-      final pool = Pool(12);
-      final futures = baseList.map((pokemon) async {
-        return pool.withResource(() => fetchPokemonDetails(pokemon));
-      });
+      final pool = Pool(_concurrentLimit);
+      final List<Future<PokemonData>> futures = baseList.map((pokemon) {
+        return pool.withResource(() => fetchPokemonImgAndId(pokemon));
+      }).toList();
 
       final detailedList = await Future.wait(futures);
       await pool.close();
 
       return detailedList;
-    } catch (e) {
-      log(e.toString());
-      return List<PokemonData>.empty();
+    } catch (e, stack) {
+      log('Erro ao buscar lista de pokémons: $e');
+      debugPrintStack(stackTrace: stack);
+      return [];
     }
   }
 
-  Future<PokemonData> fetchPokemonDetails(PokemonData pokemon) async {
+  Future<PokemonData> fetchPokemonImgAndId(PokemonData pokemon) async {
+    final name = pokemon.name;
+    if (name.isEmpty) return pokemon;
+    if (_cache.containsKey(name)) {
+      return _cache[name]!;
+    }
     try {
-      if (pokemon.url == null) return pokemon;
-      final response = await _dio.get(pokemon.url!);
+      final urlPokemon = '${BaseUrl.urlPokemon}${name.toLowerCase()}';
+      final response = await _dio.get(urlPokemon);
 
       final imageUrl = response.data["sprites"]["front_default"] as String?;
       final id = response.data["id"] as int?;
-      return pokemon.copyWith(imageUrl: imageUrl, id: id);
-    } catch (e) {
-      log('Erro ao buscar detalhes de ${pokemon.name}: $e');
+
+      final detailedPokemon = pokemon.copyWith(imageUrl: imageUrl, id: id);
+      _cache[name] = detailedPokemon;
+      return detailedPokemon;
+    } catch (e, stack) {
+      log('Erro ao buscar detalhes de $name: $e');
+      debugPrintStack(stackTrace: stack);
       return pokemon;
     }
   }

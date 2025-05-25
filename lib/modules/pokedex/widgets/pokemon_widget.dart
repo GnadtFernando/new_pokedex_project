@@ -34,7 +34,7 @@ class PokemonItemWidget extends StatelessWidget {
                   children: [
                     Flexible(
                       child: Text(
-                        pokemon.name ?? '',
+                        pokemon.name,
                         style: TextStyle(
                           color: AppColors.black,
                           fontWeight: FontWeight.bold,

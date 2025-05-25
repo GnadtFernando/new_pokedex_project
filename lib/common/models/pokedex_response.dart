@@ -7,33 +7,34 @@ String pokedexResponseToJson(PokedexResponse data) =>
     json.encode(data.toJson());
 
 class PokedexResponse {
-  List<PokemonData>? results;
+  final List<PokemonData> results;
 
-  PokedexResponse({this.results});
+  const PokedexResponse({required this.results});
 
-  factory PokedexResponse.fromJson(Map<String, dynamic> json) =>
-      PokedexResponse(
-        results: json["results"] == null
-            ? []
-            : List<PokemonData>.from(
-                json["results"]!.map((x) => PokemonData.fromJson(x)),
-              ),
-      );
+  factory PokedexResponse.fromJson(Map<String, dynamic> json) {
+    final list = json["results"] as List<dynamic>? ?? [];
+    return PokedexResponse(
+      results: list.map((e) => PokemonData.fromJson(e)).toList(),
+    );
+  }
 
   Map<String, dynamic> toJson() => {
-    "results": results == null
-        ? []
-        : List<dynamic>.from(results!.map((x) => x.toJson())),
+    "results": results.map((x) => x.toJson()).toList(),
   };
 }
 
 class PokemonData {
-  final String? name;
-  final String? url;
+  final String name;
+  final String url;
   final String? imageUrl;
   final int? id;
 
-  PokemonData({this.name, this.url, this.imageUrl, this.id});
+  const PokemonData({
+    required this.name,
+    required this.url,
+    this.imageUrl,
+    this.id,
+  });
 
   PokemonData copyWith({String? name, String? url, String? imageUrl, int? id}) {
     return PokemonData(
@@ -45,12 +46,13 @@ class PokemonData {
   }
 
   factory PokemonData.fromJson(Map<String, dynamic> json) {
-    return PokemonData(name: json["name"], url: json["url"]);
+    return PokemonData(name: json["name"] ?? '', url: json["url"] ?? '');
   }
 
   Map<String, dynamic> toJson() => {
     "name": name,
     "url": url,
     "imageUrl": imageUrl,
+    "id": id,
   };
 }
