@@ -1,16 +1,94 @@
-# new_pokedex_project
+# 🐦 Projeto Flutter
 
-A new Flutter project.
+Este é um projeto Flutter criado com a versão **3.32.0** do SDK.
 
-## Getting Started
+## 📋 Requisitos
 
-This project is a starting point for a Flutter application.
+Antes de começar, certifique-se de que você tem as seguintes ferramentas instaladas:
 
-A few resources to get you started if this is your first Flutter project:
+- [Flutter 3.32.0](https://docs.flutter.dev/get-started/install)
+- [Dart (incluído com Flutter)]
+- [Android Studio, VS Code ou outro editor compatível]
+- [Emulador Android ou dispositivo físico]
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+> 💡 Para verificar se o Flutter está corretamente instalado, execute:
+```bash
+flutter doctor
+```
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+---
+
+## 🚀 Como executar
+
+### 1. Clone o repositório
+
+```bash
+git clone https://github.com/GnadtFernando/new_pokedex_project.git
+```
+
+### 2. Certifique-se de que está usando a versão correta do Flutter
+
+Se estiver usando o Flutter com versões gerenciadas (ex: via FVM), você pode ativar a versão do projeto com:
+
+```bash
+fvm use 3.32.0
+fvm flutter pub get
+```
+
+Ou, caso esteja usando Flutter diretamente:
+
+```bash
+flutter --version
+# Se não for 3.32.0, mude manualmente ou instale: 
+# Você pode acessar https://docs.flutter.dev/install/archive para mais informações
+```
+
+### 3. Instale as dependências
+
+```bash
+flutter pub get
+```
+
+### 4. Execute o app
+
+#### Em modo debug:
+
+```bash
+flutter run
+```
+
+#### Em modo release:
+
+```bash
+flutter run --release
+```
+
+---
+
+## 📦 Build (APK ou iOS)
+
+### Android (APK)
+
+```bash
+flutter build apk --release
+```
+
+O APK será gerado em: `build/app/outputs/flutter-apk/app-release.apk`
+
+### iOS
+
+> ⚠️ Apenas em macOS com Xcode instalado.
+
+```bash
+flutter build ios --release
+```
+
+---
+
+## ❓ Problemas comuns
+
+- Execute `flutter doctor` para checar o ambiente.
+- Verifique se há um emulador ativo ou dispositivo conectado.
+- Use `flutter clean` e `flutter pub get` caso tenha erros inesperados.
+
+---
