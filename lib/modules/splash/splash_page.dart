@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
+import 'package:new_pokedex_project/common/consts/assets_strings.dart';
 import 'package:new_pokedex_project/modules/splash/splash_controller.dart';
 
 class SplashPage extends GetView<SplashController> {
@@ -13,7 +14,7 @@ class SplashPage extends GetView<SplashController> {
       backgroundColor: Color(0xFFF8FAFC),
       body: Center(
         child: Lottie.asset(
-          'assets/lottie_file/pokeball_animation.json',
+          AssetsStrings.pokeballAnimation,
           width: 200.w,
           height: 200.h,
           fit: BoxFit.fill,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:new_pokedex_project/common/consts/assets_strings.dart';
 
 class ErrorCustomWidget extends StatelessWidget {
   const ErrorCustomWidget({super.key});
@@ -11,7 +12,7 @@ class ErrorCustomWidget extends StatelessWidget {
       children: [
         Center(
           child: Image.asset(
-            'assets/img/roton_dex.png',
+            AssetsStrings.rotonImg,
             width: 300.w,
             height: 200.h,
           ),
